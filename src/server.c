@@ -6,7 +6,7 @@
 /*   By: lgaume <lgaume@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:02:17 by lgaume            #+#    #+#             */
-/*   Updated: 2023/11/22 15:27:27 by lgaume           ###   ########.fr       */
+/*   Updated: 2023/11/22 16:02:26 by lgaume           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,12 @@ void	handle_sigusr(int signum, siginfo_t *info, void *ucontent)
 	{
 		ft_printf("%c", c);
 		c = 0;
+		if (kill(info->si_pid, SIGUSR2) == -1)
+			handle_errors("Server failed to send SIGUSR2");
+		return ;
 	}
+	if (kill(info->si_pid, SIGUSR1) == -1)
+		handle_errors("Failed to send SIGUSR1");
 }
 
 void	config_signals(void)
