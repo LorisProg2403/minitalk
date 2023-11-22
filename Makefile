@@ -6,7 +6,7 @@
 #    By: lgaume <lgaume@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/22 12:54:10 by lgaume            #+#    #+#              #
-#    Updated: 2023/11/22 13:44:45 by lgaume           ###   ########.fr        #
+#    Updated: 2023/11/22 14:07:54 by lgaume           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ CLIENT_OBJ	=	$(CLIENT_SRC:.c=.o)
 all :			$(SERVER) $(CLIENT)
 
 $(LIBFT) :	
-				@make -C ./libf	
+				@make -C ./libft
 
 $(SERVER) :		$(SERVER_OBJ) $(LIBFT)
 				$(CC) $(FLAGS) $(SERVER_OBJ) $(LIBFT) -o $(SERVER)
