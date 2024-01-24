@@ -19,33 +19,50 @@ RM		=	rm -rf
 SERVER	=	server
 CLIENT	=	client
 
+SERVER_BONUS = server_bonus
+CLIENT_BONUS = client_bonus
+
 SERVER_SRC	=	src/server.c
-CLIENT_SRC	=	src/client.c 
+CLIENT_SRC	=	src/client.c
+
+SERVER_BONUS_SRC = bonus/server_bonus.c
+CLIENT_BONUS_SRC = bonus/client_bonus.c
 
 SERVER_OBJ	=	$(SERVER_SRC:.c=.o)
 CLIENT_OBJ	=	$(CLIENT_SRC:.c=.o)
 
+SERVER_BONUS_OBJ = $(SERVER_BONUS_SRC:.c=.o)
+CLIENT_BONUS_OBJ = $(CLIENT_BONUS_SRC:.c=.o)
+
 # Rules
 all :			$(SERVER) $(CLIENT)
 
+bonus :			$(SERVER_BONUS) $(CLIENT_BONUS)
+
 $(LIBFT) :	
-				@make -C ./libft
+					@make -C ./libft
 
-$(SERVER) :		$(SERVER_OBJ) $(LIBFT)
-				$(CC) $(FLAGS) $(SERVER_OBJ) $(LIBFT) -o $(SERVER)
+$(SERVER_BONUS) :	$(SERVER_BONUS_OBJ) $(LIBFT)
+					@$(CC) $(FLAGS) $(SERVER_BONUS_OBJ) $(LIBFT) -o $(SERVER)
 
-$(CLIENT) :		$(CLIENT_OBJ) $(LIBFT)
-				$(CC) $(FLAGS) $(CLIENT_OBJ) $(LIBFT) -o $(CLIENT)
+$(CLIENT_BONUS) :	$(CLIENT_BONUS_OBJ) $(LIBFT)
+					@$(CC) $(FLAGS) $(CLIENT_BONUS_OBJ) $(LIBFT) -o $(CLIENT)
+
+$(SERVER) :			$(SERVER_OBJ) $(LIBFT)
+					@$(CC) $(FLAGS) $(SERVER_OBJ) $(LIBFT) -o $(SERVER)
+
+$(CLIENT) :			$(CLIENT_OBJ) $(LIBFT)
+					@$(CC) $(FLAGS) $(CLIENT_OBJ) $(LIBFT) -o $(CLIENT)
 
 clean :			
-				@make clean -C ./libft
-				$(RM) $(SERVER_OBJ) $(CLIENT_OBJ)
+					@make clean -C ./libft
+					@$(RM) $(SERVER_OBJ) $(CLIENT_OBJ) $(SERVER_BONUS_OBJ) $(CLIENT_BONUS_OBJ)
 
-fclean :		clean
-				@make fclean -C ./libft
-				$(RM) $(SERVER) $(CLIENT)
+fclean :			clean
+					@make fclean -C ./libft
+					@$(RM) $(SERVER) $(CLIENT)
 
-re :			fclean all
+re :				fclean all
 
-.PHONY :		all re clean fclean
+.PHONY :			all re clean fclean bonus
 			
